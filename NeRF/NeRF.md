@@ -118,7 +118,9 @@
 
 他们还表明，在将输入传递给网络之前，使用高频函数将输入映射到高维空间，可以更好地拟合包含高频变化的数据。
 
-我们在神经场景表示的上下文中利用这些发现，并表明将FΘ重新定义为两个函数的组合![image](https://user-images.githubusercontent.com/48575896/226304449-1e0674da-343f-4f99-9349-539544e59d74.png),一个学会了，一个没有学会，显著提高了性能(图4和表2)。
+我们在神经场景表示的上下文中利用这些发现，并表明将FΘ重新定义为两个函数的组合![image](https://user-images.githubusercontent.com/48575896/226304449-1e0674da-343f-4f99-9349-539544e59d74.png)，显著提高了性能(图4和表2)。
+
+这里γ是从![image](https://user-images.githubusercontent.com/48575896/226307048-2562767c-1b5c-43d3-a9f1-d2aa533355ac.png)到高维空间![image](https://user-images.githubusercontent.com/48575896/226307159-1103bfdb-235f-4251-984a-ad557ce28c83.png)的映射和![image](https://user-images.githubusercontent.com/48575896/226307278-475d420a-fb9a-4d0c-9471-f179f78df106.png)仍然只是一个普通的MLP。形式上，我们使用的编码函数是:
 
 ![image](https://user-images.githubusercontent.com/48575896/226304783-d2cb87e0-2dea-44b5-8a2e-7413b49416aa.png)
 
