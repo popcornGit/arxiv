@@ -90,8 +90,14 @@
 
 相反，我们使用分层抽样方法，将[tn, tf]划分为N个均匀间隔的容器，然后从每个容器中均匀随机地抽取一个样本:
 
+![image](https://user-images.githubusercontent.com/48575896/226298782-9cbb99f8-0a32-4123-b823-c323f83f8c6f.png)
+
 尽管我们使用离散的样本集来估计积分，分层抽样使我们能够表示连续的场景表示，因为这个抽样方法导致MLP在优化过程中在连续的位置被评估。
 
 我们使用这些样本，用Max[26]在体素渲染综述中讨论的正交规则来估计C(r):
 
 ![image](https://user-images.githubusercontent.com/48575896/226298446-4e5f81e4-3a48-4b57-b09a-e41b44a7cba5.png)
+
+其中δi = ti+1 − ti为相邻样本之间的距离。
+
+这个函数用于计算![image](https://user-images.githubusercontent.com/48575896/226299633-66520530-b0b6-470c-87b9-1483d2456433.png)从(ci， σi)值是平凡可微的，并简化为传统的α值αi = 1 - exp(−σiδi)的α合成。
