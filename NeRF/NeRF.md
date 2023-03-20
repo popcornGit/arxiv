@@ -100,6 +100,15 @@
 
 其中δi = ti+1 − ti为相邻样本之间的距离。
 
-这个函数用于计算![image](https://user-images.githubusercontent.com/48575896/226299633-66520530-b0b6-470c-87b9-1483d2456433.png)从(ci， σi)值是平凡可微的，并简化为传统的α值αi = 1 - exp(−σiδi)的α合成。
+这个函数用于计算![image](https://user-images.githubusercontent.com/48575896/226299633-66520530-b0b6-470c-87b9-1483d2456433.png)从(ci， σi)值是平凡可微的，并简化为传统的α值 αi = 1 - exp(−σiδi)。
 
-##　Optimizing a Neural Radiance Field
+## Optimizing a Neural Radiance Field
+在前一节中，我们已经描述了将场景建模为神经辐射场并从该表示中渲染新视图所必需的核心组件。
+
+然而，我们观察到这些组件不足以达到最先进的质量，如第6.4节所述)。
+
+我们引入了两个改进来表示高分辨率的复杂场景。
+
+第一个是输入坐标的位置编码，帮助MLP表示高频函数，第二个是分层抽样过程，允许我们有效地对高频表示进行抽样。
+
+### Positional encoding
