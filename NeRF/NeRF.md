@@ -101,3 +101,5 @@
 其中δi = ti+1 − ti为相邻样本之间的距离。
 
 这个函数用于计算![image](https://user-images.githubusercontent.com/48575896/226299633-66520530-b0b6-470c-87b9-1483d2456433.png)从(ci， σi)值是平凡可微的，并简化为传统的α值αi = 1 - exp(−σiδi)的α合成。
+
+##　Optimizing a Neural Radiance Field
