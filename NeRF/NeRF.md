@@ -150,3 +150,11 @@
 为此，我们首先从粗网络![image](https://user-images.githubusercontent.com/48575896/226310168-62026e7b-77e2-421a-8b05-0bc724ac3203.png)中重写alpha合成颜色Eqn. 3作为所有采样颜色ci沿射线的加权和:
 
 ![image](https://user-images.githubusercontent.com/48575896/226310276-973b505d-2192-4bce-80d0-d3e4ce06fc41.png)
+
+将这些权重归一化为:![image](https://user-images.githubusercontent.com/48575896/226311632-9941a37d-93b1-4393-b93b-7b7a244d4833.png)产生一个分段常数沿射线方向。
+
+我们使用反变换采样从这个分布中采样第二组Nf位置，在第一组和第二组样本的并集处评估我们的“精细”网络，并计算光线的最终渲染颜色![image](https://user-images.githubusercontent.com/48575896/226311961-d971c83b-9ace-4510-8b7d-5ce866ab23ea.png)使用Eqn. 3，但使用所有Nc+Nf样本。
+
+这个过程将更多的样本分配到我们期望包含可见内容的区域。
+
+这解决了与重要性抽样类似的目标，但我们使用抽样值作为整个积分域的非均匀离散化，而不是将每个样本作为整个积分的独立概率估计。
