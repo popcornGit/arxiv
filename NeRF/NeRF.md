@@ -177,3 +177,7 @@ R是每一批射线的集合![image](https://user-images.githubusercontent.com/4
 请注意，即使最终的渲染来自![image](https://user-images.githubusercontent.com/48575896/226313900-01b910fb-e1e6-43ba-b602-2c59488898d2.png)，我们还最小化了![image](https://user-images.githubusercontent.com/48575896/226313961-6f2e5055-96d9-4fe2-bbea-c6ef26edc204.png)的损失，使得粗网络中的权重分布可以用来在细网络中分配样本。
 
 在我们的实验中，我们使用了4096条射线的批量大小，每条射线在粗体中Nc = 64坐标采样，在细体中Nf = 128额外坐标采样。
+
+我们使用Adam优化器, 学习率从5 × 10−4开始，在优化过程中呈指数衰减到5 × 10−5, (other Adam hyperparameters are left at default values of β1 = 0.9, β2 = 0.999, and ε = 10−7).
+
+一个场景的优化通常需要100 -300K次迭代收敛到单个NVIDIA V100 GPU上(大约1-2天)。
