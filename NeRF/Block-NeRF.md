@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/48575896/226500717-142d0726-9a5b-4620-a6b4-3a9fb5fec320.png)
+
 # Block-NeRF: Scalable Large Scene Neural View Synthesis
 
 ## Abstract
@@ -124,5 +126,11 @@ MipNeRF[3]通过 沿着射线  使用投影像素足迹  而不是间隔  对锥
 
 例如，在我们的一些实验中，我们沿着单一的街道段以均匀的距离放置街区，并将街区大小定义为围绕街道的球体Block-NeRF Origin(参见图2)。
 
+![image](https://user-images.githubusercontent.com/48575896/226500776-035a66b3-0c32-4d8d-bfff-fd602a38feac.png)
+
+
 ### Training Individual Block-NeRFs
 #### Appearance Embeddings
+考虑到我们数据的不同部分可能在不同的环境条件下被捕获，我们遵循NeRF-W[40]并使用生成潜优化[5]来优化周围图像外观嵌入向量，如图3所示。
+
+![image](https://user-images.githubusercontent.com/48575896/226500852-6cccc583-3dd7-46a3-830a-cc4c1f2b5dd3.png)
