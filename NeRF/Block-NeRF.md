@@ -53,3 +53,34 @@
 为了计算目标视图，只渲染block - nerf的一个子集，然后根据它们相对于相机的地理位置进行合成。
 
 为了实现更无缝的合成，我们提出了一种外观匹配技术，通过优化不同block - nerf的外观嵌入，将其带入视觉对齐。
+
+## Background
+我们建立在NeRF[42]和它的扩展mip-NeRF[3]。
+
+在此，我们对这些方法的相关部分进行总结, 详情请参阅论文原文。
+
+### NeRF and mip-NeRF Preliminaries
+神经辐射场(NeRF)[42]是一种基于坐标的神经场景表示，它通过可微分渲染损失进行优化，以重现一组来自已知相机姿势的输入图像的外观。
+
+优化后，NeRF模型可以用来渲染以前未见过的视点。
+
+NeRF场景表示是一对多层感知器(mlp)。第一个MLP fσ取三维位置x，输出体积密度σ和特征向量。
+
+该特征向量与2D观看方向d连接，馈送到第二个MLP fc，输出RGB颜色c。
+
+这种架构确保输出颜色可以在从不同角度观察时发生变化，允许NeRF表示反射和光滑材料，但σ表示的底层几何仅是位置的函数。
+
+图像中的每个像素在三维空间中对应一条射线r(t) = o + td。
+
+为了计算r的颜色，NeRF沿射线随机采样距离![image](https://user-images.githubusercontent.com/48575896/226497140-ba58548c-4396-4129-a91a-ccd5614fc3ff.png)，通过点r(ti)和方向d通过它的mlp进行计算![image](https://user-images.githubusercontent.com/48575896/226497182-df89ce72-cea7-4a46-9a7e-1713e9ac22bf.png)
+
+结果输出颜色为:
+![image](https://user-images.githubusercontent.com/48575896/226497210-cfe4d2a2-4b76-4b27-9d9c-b9a87fadddb2.png)
+
+完整的NeRF实现迭代地重新采样点ti(通过将权重wi视为概率分布)，以便更好地将样本集中在高密度区域。
+
+为了使NeRF mlp能够表示更高的频率细节[63]，输入x和d分别经过分量正弦位置编码γPE预处理:
+
+![image](https://user-images.githubusercontent.com/48575896/226497592-1691931c-12b8-4979-a256-4abb55be7c9f.png)
+
+其中L是位置编码的层数。
