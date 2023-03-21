@@ -84,3 +84,15 @@ NeRF场景表示是一对多层感知器(mlp)。第一个MLP fσ取三维位置x
 ![image](https://user-images.githubusercontent.com/48575896/226497592-1691931c-12b8-4979-a256-4abb55be7c9f.png)
 
 其中L是位置编码的层数。
+
+NeRF的MLP fσ以单个3D点作为输入.
+
+然而，这忽略了相应图像像素的相对占地面积和间隔[ti−1,ti]沿着包含点的射线r，导致在渲染新相机轨迹时产生混叠工件。
+
+MipNeRF[3]通过使用投影像素足迹沿着射线而不是间隔对锥形截锥进行采样来解决这个问题。
+
+![image](https://user-images.githubusercontent.com/48575896/226497948-fc73dd71-218c-42f1-9055-ed5fec0b78ab.png)
+
+为了将这些截锥送入MLP, mip-NeRF将它们近似为带有参数µi， Σi的高斯分布，并将位置编码γPE替换为其在输入高斯上的期望，称为集成位置编码。
+
+## Method
