@@ -83,7 +83,9 @@
 
 我们还提出了一个新的大规模数据集，包含从无人机拍摄的超过10万平方米的工业园区附近地形中收集的数千张高清图像。
 
-### Spatial partitioning.
+## Approach
+### Model Architecture
+#### Spatial partitioning.
 Mega-NeRF将场景分解为cells, 其质心为 ![image](https://user-images.githubusercontent.com/48575896/226876600-3a089f0a-0c39-4a1a-aa4a-c58428a96359.png)并初始化一组相应的模型权重![image](https://user-images.githubusercontent.com/48575896/226876784-3b3c31e8-e656-4bd1-b889-be2758d72817.png)
 
 每个权值子模块是一个类似于全连接层的NeRF架构。
@@ -96,19 +98,19 @@ Mega-NeRF将场景分解为cells, 其质心为 ![image](https://user-images.gith
 
 ![image](https://user-images.githubusercontent.com/48575896/226881418-b7d01c53-248a-440e-a850-6c44c0c9ab36.png)
 
-### Centroid selection.
+#### Centroid selection.
 尽管我们探索了几种方法，包括k-means聚类和[44]中基于不确定性的分区，但我们最终发现，将场景分解为自上而下的2D网格在实践中效果很好。
 
 这种方法实现简单，需要最少的预处理，并且能够在推理时有效地将点查询分配到质心。
 
 由于在我们的场景中相机姿势之间的高度差异相对于纬度和经度的差异很小，我们将质心的高度固定为相同的值。
 
-### Foreground and background decomposition.
+#### Foreground and background decomposition.
 类似于nerf++[48]，我们进一步将场景细分为包含所有相机姿势的前景体和覆盖互补区域的背景。
 
-这两个卷都用单独的mega - nerf建模。
+这前景和背景两个卷都用单独的mega - nerf建模。
 
-我们使用与nerf++相同的4D外部体积参数化和光线投射公式，但通过使用更紧密地包围相机姿势和相关前景细节的椭球来改进其单位球体划分。
+我们使用与nerf++相同的4D外部体积参数化和光线投射公式，但通过 使用更紧密地包围相机姿势和相关前景细节的 椭球 来  改进其单位球体划分。
 
 我们还利用相机高度测量的优势，通过在地面附近终止射线来进一步细化场景的采样界限。
 
@@ -117,3 +119,16 @@ Mega-NeRF将场景分解为cells, 其质心为 ![image](https://user-images.gith
 图3说明了两种方法之间的差异。
 
 ![image](https://user-images.githubusercontent.com/48575896/226882695-14a25a0b-fd11-493c-a176-b8537d2cc239.png)
+
+### Training
+#### Spatial Data Parallelism.
+由于每个Mega-NeRF子模块都是一个独立的MLP，我们可以在没有模块间通信的情况下并行训练每个子模块。
+
+至关重要的是，由于每张图像只捕捉了场景的一小部分(表1)，我们将每个子模块的训练集的大小限制为仅那些潜在相关的像素。
+
+具体来说，我们沿着与每个训练图像的每个像素对应的摄像机射线采样点，并仅将该像素添加到它相交的空间单元中(图1)。
+![image](https://user-images.githubusercontent.com/48575896/226888319-ad97aa49-71f6-4b6b-834e-e28a0a8344fe.png)
+
+在我们的实验中，这种可见性划分将每个子模块的训练集的大小与初始聚合训练集相比减少了10倍。
+
+对于更大规模的场景，这种数据减少应该更加极端;当训练北匹兹堡的NeRF时，不需要添加南匹兹堡的像素。我们在cells之间包括一个小的重叠因子(在我们的实验中为15%)，以进一步减少边界附近的视觉伪影。
