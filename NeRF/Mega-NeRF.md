@@ -133,3 +133,5 @@ Mega-NeRF将场景分解为cells, 其质心为 ![image](https://user-images.gith
 在我们的实验中，这种可见性划分将每个子模块的训练集的大小与初始聚合训练集相比减少了10倍。
 
 对于更大规模的场景，这种数据减少应该更加极端;当训练北匹兹堡的NeRF时，不需要添加南匹兹堡的像素。我们在cells之间包括一个小的重叠因子(在我们的实验中为15%)，以进一步减少边界附近的视觉伪影。
+
+![image](https://user-images.githubusercontent.com/48575896/226890752-4f2fe438-f4a6-4120-ad4f-764bfc885816.png)
