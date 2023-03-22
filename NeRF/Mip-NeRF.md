@@ -119,3 +119,14 @@ MipNeRF通过从每个像素铸造一个锥体来改善这个问题。
 
 ![image](https://user-images.githubusercontent.com/48575896/226818726-f44fd318-1760-4714-9486-6e1f2da20213.png)
 
+这种重新参数化允许我们推导出IPE的封闭形式。
+
+利用一个变量的线性变换的协方差是变量协方差的线性变换这一事实![image](https://user-images.githubusercontent.com/48575896/226819319-b3433a2a-9eb2-4efd-b8bd-6895b3cd7cdc.png)当圆锥锥体高斯被提升到PE基P后，我们可以识别它的均值和协方差:
+
+![image](https://user-images.githubusercontent.com/48575896/226819521-bc89e517-8616-4426-9c00-7c671a25f4b4.png)
+
+生成IPE特征的最后一步是计算在这个提升的多元高斯上的期望，由位置的正弦和余弦调制。
+
+这些期望有简单的封闭形式的表达式:
+
+![image](https://user-images.githubusercontent.com/48575896/226819570-120d0353-5eef-4ce3-aa64-952b634d054c.png)
