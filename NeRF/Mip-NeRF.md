@@ -103,3 +103,19 @@ MipNeRF通过从每个像素铸造一个锥体来改善这个问题。
 
 ![image](https://user-images.githubusercontent.com/48575896/226795161-0b29ce20-502b-4d81-93a4-062c4430bca2.png)
 
+这些量是根据中点tµ= (t0 + t1)/2和半宽tδ = (t1−t0)/2进行参数化的，这对数值稳定性至关重要。详细的推导请参考补充。
+
+我们可以对多元高斯函数从圆锥截锥的坐标坐标系转换到到世界坐标下:
+
+![image](https://user-images.githubusercontent.com/48575896/226817759-97399341-24df-47b7-8463-8a2c71aec9a0.png)
+
+得到最终的多元高斯函数。
+
+接下来，我们推导出IPE，它是根据前面提到的高斯分布的位置编码坐标的期望。
+
+为了实现这一点，首先将公式1中的PE重写为傅里叶特征[35,44]是有帮助的:
+
+![image](https://user-images.githubusercontent.com/48575896/226818697-e42378c0-72ec-4a43-81d8-d6a965d12255.png)
+
+![image](https://user-images.githubusercontent.com/48575896/226818726-f44fd318-1760-4714-9486-6e1f2da20213.png)
+
