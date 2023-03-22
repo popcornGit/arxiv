@@ -100,3 +100,6 @@ MipNeRF通过从每个像素铸造一个锥体来改善这个问题。
 用多元函数近似圆锥体我们必须计算F (x，·)的均值和协方差。
 
 因为每个圆锥截体都被假设为圆形，并且因为圆锥截体围绕锥轴对称，这样的高斯分布完全由三个值(除了o和d之外)表征:沿射线的平均距离µt，沿射线的方差![image](https://user-images.githubusercontent.com/48575896/226794956-4236aae4-d856-4fa5-8adb-76006bd784ca.png)，垂直于射线σ的方差![image](https://user-images.githubusercontent.com/48575896/226794942-e7ab57ae-0f1d-4fcf-9b9e-d395b98af334.png)：
+
+![image](https://user-images.githubusercontent.com/48575896/226795161-0b29ce20-502b-4d81-93a4-062c4430bca2.png)
+
