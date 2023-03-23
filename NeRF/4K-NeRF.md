@@ -109,3 +109,26 @@ NeRF通过学习一个连续映射函数F利用3D点位置x∈R3和观看方向d
 该方法旨在通过积分提高基于nerf的模型在高频细节恢复方面的表征能力在观察中学习到的3d感知局部特征。
 
 我们进一步实证证明，该框架能够在标准分辨率(即1K)下提高传统NeRF方法的视觉质量，其中编码器和解码器在具有相同分辨率的空间中学习(如5.5中使用射线特征局部相关性增强的消融研究所示)。
+
+### View Consistent Encoder
+我们实现VC-Encoder基于DVGO[36]中定义的公式，其中基于体素网格的表示被学习来显式编码几何结构，
+
+![image](https://user-images.githubusercontent.com/48575896/227151636-8362492b-12ff-4927-b296-bd6d83c6e381.png)
+
+其中Nc为密度的通道维数(Nc =1)色彩模态，分别。
+
+对于每个采样点，密度通过配备softplus激活函数的三线性插值估计，即:![image](https://user-images.githubusercontent.com/48575896/227152436-a258e7d4-186c-4828-8586-5b41102a9482.png)
+
+颜色是用浅MLP估计的，
+
+![image](https://user-images.githubusercontent.com/48575896/227152503-30320d1a-37a4-4467-9cc7-7420dc78bf82.png)
+
+其中gθ(·)提取颜色信息的体积特征，fRGB表示从特征到RGB图像的映射(具有一层或多层)。
+
+我们将![image](https://user-images.githubusercontent.com/48575896/227157048-3543daaf-6d65-462f-8f7e-af4e61b8bc1a.png)作为VC-Encoder，输出![image](https://user-images.githubusercontent.com/48575896/227157096-a297bc52-6553-4103-92d4-786b24624ddd.png)为观察方向为d的点X的体积特征，该特征中嵌入了几何信息。
+
+在这方面，我们可以通过将沿着射线r的采样点的特征累加得到每个射线(或像素)的描述符，如Eqn.1所示，
+
+![image](https://user-images.githubusercontent.com/48575896/227157368-d33348ae-14a4-49ad-97d4-132af791b88d.png)
+
+假设空间维度为H ' ×W '，形成的特征图Fen∈RC ' ×H ' ×W '输入VC-Decoder进行精细细节的高保真重构。
