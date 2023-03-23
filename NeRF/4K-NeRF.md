@@ -132,3 +132,12 @@ NeRF通过学习一个连续映射函数F利用3D点位置x∈R3和观看方向d
 ![image](https://user-images.githubusercontent.com/48575896/227157368-d33348ae-14a4-49ad-97d4-132af791b88d.png)
 
 假设空间维度为H ' ×W '，形成的特征图Fen∈RC ' ×H ' ×W '输入VC-Decoder进行精细细节的高保真重构。
+
+### View Consistent Decoder
+为了更好地使用VC-Encoder embedded的几何属性，我们也生成一个深度图M∈RH0 ×W0通过估计每条射线r沿摄像机轴的深度，
+
+![image](https://user-images.githubusercontent.com/48575896/227168825-b0c7e27b-e036-4e04-80c0-0005b4a1f744.png)
+
+式中，ti为采样点i到摄像机中心的距离，如Eqn.1。
+
+估计的深度图为低估场景的3D结构提供了强有力的指导，例如，图像平面上附近的像素在原始3D空间中可能很远。
