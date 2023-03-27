@@ -127,3 +127,17 @@ grid的大小对3D车道的预测有很大影响。
 因此，从3D道检测头输出四个200×40分辨率的张量，包括confidence、embedding、offset和height。confidence、embedding和offset分支合并得到BEV下的实例级车道.
 
 针对这4个head，产生了4个loss：
+
+#### confidence loss
+![image](https://user-images.githubusercontent.com/48575896/227913041-ea3d50a1-9237-49f3-9b3b-0cbeaeafa51a.png)
+
+
+#### offset loss
+![image](https://user-images.githubusercontent.com/48575896/227913078-ea3ec7ca-ca87-4c1c-856e-0370fbc3441e.png)
+
+#### embeding loss
+![image](https://user-images.githubusercontent.com/48575896/227913119-0bef610b-bb8b-4e36-8cde-a3fde4e4881b.png)
+
+
+#### height loss
+![image](https://user-images.githubusercontent.com/48575896/227913166-7166165b-9309-4abd-9efd-34022d5df88f.png)
