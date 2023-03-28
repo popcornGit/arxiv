@@ -81,3 +81,10 @@ GMA Conv将真实的LiDAR点和生成的虚拟点作为输入，并以先选择�
 ![5bc364db2c7dabc41dafd5598fb13062](https://user-images.githubusercontent.com/48575896/227925388-182454eb-f117-42e7-8cf9-abbf8eb5f9a0.png)
 
 ### 本文方法
+MSMDFusion的总体视图如图2所示，给定LiDAR点云和相应的多视图相机图像作为输入，MSMDFusion首先从体素空间中的两种模态中提取多尺度特征。
+
+然后，在多尺度体素空间内执行激光雷达相机交互，以适当地组合来自两种模态的多粒度信息。
+
+
+
+![31844be226ae56a8f30654042d1e282c](https://user-images.githubusercontent.com/48575896/228201468-4b58f4b2-ad75-4d1b-827f-11f477c5d5a1.png)
