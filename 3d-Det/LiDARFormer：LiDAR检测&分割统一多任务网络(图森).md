@@ -59,7 +59,7 @@ $$ \mathcal{V}_{j}=\max _{\mathcal{I}_{i}=\mathcal{I}_{j}}\left(\operatorname{ML
 
 对于分割任务，BEV特征被重新投影到体素空间，在那里使用U-Net解码器将特征图上采样回原始比例。
 
-论文用体素级标签$$L^v$$监督论文的模型，并在推理过程中通过去体素化步骤将预测的标签投影回点云层级。
+论文用体素级标签 $$ L^v $$ 监督论文的模型，并在推理过程中通过去体素化步骤将预测的标签投影回点云层级。
 
 ## Cross-space Transformer
 ![image](https://user-images.githubusercontent.com/48575896/229678962-9698454d-d203-476f-8625-6f5a59820cef.png)
