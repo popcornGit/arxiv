@@ -219,3 +219,12 @@ LLMs 本质上是基于大规模纯文本语料库训练的文本生成器，因
 1.平衡数据分布。
 
 2.结合指令调优和预训练。
+
+![image](https://user-images.githubusercontent.com/48575896/229666552-38b9f404-f8ec-477f-b8ae-30dfe0001945.png)
+
+## 对齐调优
+这部分首先介绍了对齐的背景及其定义和标准，然后重点介绍了用于对齐 LLMs 的人类反馈数据的收集，最后讨论了用于对齐调整的人类反馈强化学习的关键技术。
+
+![image](https://user-images.githubusercontent.com/48575896/229666627-a46b7c07-34db-4e50-a0c2-3a98afede654.png)
+
+# 使用
