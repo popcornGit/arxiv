@@ -80,6 +80,8 @@ $$ \mathcal{V}_{j}=\max _{\mathcal{I}_{i}=\mathcal{I}_{j}}\left(\operatorname{ML
 
 ![image](https://user-images.githubusercontent.com/48575896/229680370-16140eaf-c7aa-48da-8159-aa95d65e2446.png)
 
+![image](https://user-images.githubusercontent.com/48575896/229705002-5a6c4ca3-419a-46a0-b58c-1f298999d7bd.png)
+
 采用可变形注意力[76]作为自注意力层来探索密集特征图中的全局信息。
 
 由于 $F^dense$ 缺乏高度信息，由于2D多尺度特征提取器主要关注BEV级别的信息，论文开发了一个多头多高度注意力模块来学习所有高度的特征：
@@ -95,3 +97,5 @@ $$\chi(p)=\sum_{i=1}^{N_{\text {head }}} W_{i}\left[\sum_{j=1}^{N_{\text {height
 为了增加2D BEV特征提取器的感受野，论文添加了一个跨空间转换器模块，以类似的方式转换为密集的BEV特征，如图3b所示。
 
 它为BEV特征提供了更多的上下文信息，BEV特征将被馈送到2D多尺度特征提取器中。
+
+## Cross-task Transformer Decoder
