@@ -63,3 +63,30 @@ $$ \mathcal{V}_{j}=\max _{\mathcal{I}_{i}=\mathcal{I}_{j}}\left(\operatorname{ML
 
 ## Cross-space Transformer
 ![image](https://user-images.githubusercontent.com/48575896/229678962-9698454d-d203-476f-8625-6f5a59820cef.png)
+
+如图1所示，基于体素的激光雷达检测和分割通常需要骨干网络分别在2D密集BEV空间和3D稀疏体素空间上提取特征表示。
+
+为了克服合并从这两个任务中学习到的特征的挑战，先前的多任务网络[62]提出了一个全局上下文池模块，以根据特征的位置直接映射特征，而不考虑稀疏性的差异。
+
+相反，论文提出了一种跨空间转换器模块，该模块利用可变形注意力来增强这些空间之间的特征提取，以进一步增加感受野。
+
+如图2所示，论文使用跨空间Transformer来：
+
+1.将上一个尺度中的稀疏体素特征转换为密集BEV特征（稀疏到密集），
+
+2.将密集BEV特性从2D多尺度特征提取器转换为稀疏体素特性。
+
+跨空间转换器如图3所示。
+
+![image](https://user-images.githubusercontent.com/48575896/229680370-16140eaf-c7aa-48da-8159-aa95d65e2446.png)
+
+采用可变形注意力[76]作为自注意力层来探索密集特征图中的全局信息。
+
+由于 $F^dense$ 缺乏高度信息，由于2D多尺度特征提取器主要关注BEV级别的信息，论文开发了一个多头多高度注意力模块来学习所有高度的特征：
+
+对于在高度h的切片BEV特征图上位置的每个参考体素，可变形的自注意使用线性层来学习所有头部和高度的BEV偏移。
+
+多高度可变形自注意力的输出可以公式化为：
+
+$$\chi(p)=\sum_{i=1}^{N_{\text {head }}} W_{i}\left[\sum_{j=1}^{N_{\text {height }}} \sum_{r=1}^{R} \sigma\left(W_{i j r} q_{p}\right) W_{i}^{\prime} x^{j}\left(\xi+\Delta \xi_{i j r}\right)\right]$$
+
