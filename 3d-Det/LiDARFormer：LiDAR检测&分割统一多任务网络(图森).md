@@ -147,5 +147,23 @@ LidarMultiNet[62]证明，通过共享中间特征表示，可以提高检测和
 因此，分割头很难适应场景的变化条件。遵循图像实例分割的新趋势[50，49，11，26]，论文直接使用学习的类特征嵌入作为卷积核来生成语义logits。
 
 ### 跨任务注意力：
+如图4所示，论文采用了经过充分研究的CenterFormer[74]的检测转换器解码器，which represents the object-level feature as center query embedding initialized from BEV center proposals。
 
-# 实验
+we initialize the class feature embedding ε using the BEV feature.
+
+该解码器将目标级特征表示为从BEV中心建议初始化的中心查询嵌入。
+
+类特征和中心特征被连接起来，然后发送到共享的转换器解码器中，在那里检测任务和分割任务之间的信息通过跨任务自注意力层相互传输。
+
+由于内存限制，类特征和中央特征分别与体素和BEV特征图分开聚合特征。
+
+# 总结
+本文提出了一种新颖有效的多任务激光雷达感知范式LiDARFormer。
+
+LiDARFormer提供了一种增强体素特征表示的新方法，并能够以更优雅和有效的方式对检测和分割任务进行联合学习。
+
+尽管设计了仅用于激光雷达输入的LiDARFormer，但论文的Transformer XSF和XTF可以简单地通过交叉注意力层扩展到学习多模态和时间特征。
+
+类似地，XSF可以在可变形注意力模块中应用多尺度特征图，以进一步提取具有较大感受野的上下文信息。
+
+LiDARFormer在竞争激烈的nuScenes和Waymo检测和分割基准上树立了最先进的新性能。我们相信，本文的工作将激励未来在这一领域进行更具创新性的研究。
