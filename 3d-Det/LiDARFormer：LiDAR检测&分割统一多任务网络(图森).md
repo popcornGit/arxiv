@@ -42,4 +42,4 @@ LiDARFormer在大规模nuScenes和Waymo Open数据集上进行了3D检测和语�
 ![image](https://user-images.githubusercontent.com/48575896/229677314-29d06085-7c02-46d9-94d3-1460959a9258.png)
 
 ## 基于体素的LiDAR感知
-$$ \mathcal{V}_{j}=\max _{\mathcal{I}_{i}=\mathcal{I}_{j}}\left(\operatorname{MLP}\left(p_{i}\right)\right), j \in(1 \ldots M)
+$$ \mathcal{V}_{j}=\max _{\mathcal{I}_{i}=\mathcal{I}_{j}}\left(\operatorname{MLP}\left(p_{i}\right)\right), j \in(1 \ldots M)$$
