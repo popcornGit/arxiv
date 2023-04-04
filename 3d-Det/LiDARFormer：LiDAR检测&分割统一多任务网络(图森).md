@@ -90,3 +90,8 @@ $$ \mathcal{V}_{j}=\max _{\mathcal{I}_{i}=\mathcal{I}_{j}}\left(\operatorname{ML
 
 $$\chi(p)=\sum_{i=1}^{N_{\text {head }}} W_{i}\left[\sum_{j=1}^{N_{\text {height }}} \sum_{r=1}^{R} \sigma\left(W_{i j r} q_{p}\right) W_{i}^{\prime} x^{j}\left(\xi+\Delta \xi_{i j r}\right)\right]$$
 
+由于密集到稀疏交叉空间Transformer是在2D特征提取器之后应用的，它不会影响所学习的2D BEV特征，因此对提高检测性能的影响有限。
+
+为了增加2D BEV特征提取器的感受野，论文添加了一个跨空间转换器模块，以类似的方式转换为密集的BEV特征，如图3b所示。
+
+它为BEV特征提供了更多的上下文信息，BEV特征将被馈送到2D多尺度特征提取器中。
