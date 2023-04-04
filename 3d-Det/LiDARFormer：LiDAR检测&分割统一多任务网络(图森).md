@@ -27,3 +27,19 @@ LiDARFormer在大规模nuScenes和Waymo Open数据集上进行了3D检测和语�
 4.论文在两个流行的大规模激光雷达基准上实现了最先进的3D检测和语义分割性能。
 
 # 方法
+本节将介绍激光LiDARFormer的设计。
+
+如图2所示，框架由三部分组成：
+
+1.使用3D稀疏卷积的3D编码器-解码器骨干网络；
+
+2.一种跨空间Transformer（XSF）模块，用于提取BEV中的大规模和上下文特征；
+
+3.一种跨任务Transformer（XTF）解码器，其从体素和BEV特征图聚合类和对象全局上下文信息。
+
+本文的网络采用了LidarMultiNet[62]的多任务学习框架，但通过共享的跨任务注意力层进一步将分割和检测之间的全局特征相关联。
+
+![image](https://user-images.githubusercontent.com/48575896/229677314-29d06085-7c02-46d9-94d3-1460959a9258.png)
+
+## 基于体素的LiDAR感知
+\mathcal{V}_{j}=\max _{\mathcal{I}_{i}=\mathcal{I}_{j}}\left(\operatorname{MLP}\left(p_{i}\right)\right), j \in(1 \ldots M)
