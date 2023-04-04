@@ -42,4 +42,24 @@ LiDARFormer在大规模nuScenes和Waymo Open数据集上进行了3D检测和语�
 ![image](https://user-images.githubusercontent.com/48575896/229677314-29d06085-7c02-46d9-94d3-1460959a9258.png)
 
 ## 基于体素的LiDAR感知
+### 体素化：
+
+首先将点云坐标转换为体素索引。
+
+然后使用一个简单的体素特征编码器，它只包含多层感知器（MLP）和最大池化层来生成稀疏体素特征表示：
+
 $$ \mathcal{V}_{j}=\max _{\mathcal{I}_{i}=\mathcal{I}_{j}}\left(\operatorname{MLP}\left(p_{i}\right)\right), j \in(1 \ldots M)$$
+
+### 基于稀疏体素的骨干网络：
+使用VoxelNet[73]作为网络的骨干，其中体素特征在编码器中逐渐下采样到原始大小的1/8。
+
+稀疏体素特征被投影到密集BEV图上，然后是2D多尺度特征提取器来提取全局信息。
+
+对于检测任务，将检测头附加到BEV特征图上，以预测目标边界框。
+
+对于分割任务，BEV特征被重新投影到体素空间，在那里使用U-Net解码器将特征图上采样回原始比例。
+
+论文用体素级标签$$L^v$$监督论文的模型，并在推理过程中通过去体素化步骤将预测的标签投影回点云层级。
+
+## Cross-space Transformer
+![image](https://user-images.githubusercontent.com/48575896/229678962-9698454d-d203-476f-8625-6f5a59820cef.png)
