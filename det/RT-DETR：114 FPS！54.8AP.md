@@ -105,3 +105,13 @@ NMS是检测中广泛采用的后处理算法，用于消除检测器输出的�
 注意，在实验中采用的NMS后处理操作是指TensorRT efficientNMSPlugin，它涉及多个CUDA内核，包括EfficientNMSFilter、RadixSort、EfficientNMS等，作者只报告了EfficientNMS内核的执行时间。在T4 GPU上测试了速度，上述实验中的输入图像和预处理是一致的。使用的超参数和相应的结果如表1所示。
 
 ## 3.2、端到端速度基准
+为了能够公平地比较各种实时检测器的端到端推理速度，作者建立了一个端到端速度测试基准。考虑到NMS的执行时间可能会受到输入图像的影响，有必要选择一个基准数据集，并计算多个图像的平均执行时间。该基准采用COCO val2017作为默认数据集，为需要后处理的实时检测器添加了TensorRT的NMS后处理插件。
+
+具体来说，根据基准数据集上相应精度的超参数测试检测器的平均推理时间，不包括IO和内存复制操作。利用该基准测试T4 GPU上基于锚的检测器YOLOv5和YOLOv7以及Anchor-Free检测器PP-YOLOE、YOLOv6和YOLOv8的端到端速度。
+
+![image](https://user-images.githubusercontent.com/48575896/233333296-a6f6009a-7d05-48a0-924a-67873f4643d7.png)
+
+根据结果得出结论，对于需要NMS后处理的实时检测器，Anchor-Free检测器在同等精度上优于Anchor-Base的检测器，因为前者的后处理时间明显少于后者，这在以前的工作中被忽略了。这种现象的原因是，Anchor-Base的检测器比Anchor-Free的检测器产生更多的预测框（在测试的检测器中是3倍多）。
+
+# The Real-time DETR
+## 4.1、方法概览
