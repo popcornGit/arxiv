@@ -68,3 +68,19 @@ NTP时间戳在NvDsFrameMeta的ntp_timestamp字段中设置。
 
 在即将发布的DeepStream版本中，默认情况下将加载新的nvstreammux。
 
+![image](https://github.com/popcornGit/arxiv/assets/48575896/dc041b14-6f7b-46b9-8679-1416c06d1f4d)
+
+·Inputs
+NV12/RGBA 任意数量源的buffers
+单声道S16LE/F32LE音频缓冲器从任意数量的来源
+
+·Control Parameters
+batch-size
+Config-file-path [config-keys详情如下]
+num-surfaces-per-frame
+attach-sys-ts
+frame-duration
+
+·Output
+NV12/RGBA批处理视频缓冲区NvBufSurface或批处理音频缓冲区NvBufAudio
+GstNvBatchMeta(包含批处理缓冲区中单个帧信息的元数据)
